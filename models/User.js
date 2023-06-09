@@ -15,20 +15,20 @@ User.init(
 
     // # Id of the User
     id: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      primeryKey: true,
-      autoIncremement: true,
+      primaryKey: true,
+      autoIncrement: true,
     },
     // Username of user
     username: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     // Email of user
     email: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -37,7 +37,7 @@ User.init(
     },
     // User password
     password: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [8],
@@ -58,7 +58,7 @@ User.init(
         if (updatedUserData.password) {
           updatedUserData.password = await bcrypt.hash(
             updatedUserData.password,
-            10
+             10
           );
         }
         return updatedUserData;
@@ -72,7 +72,7 @@ User.init(
     freezeTableName: true,
     // Use underscored naming convention for attributes
     underscored: true,
-    // Set te model name to 'user'
+    // Set the model name to 'user'
     modelName: "user",
   }
 );

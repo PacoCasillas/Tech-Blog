@@ -13,7 +13,7 @@ BlogPost.init(
 
     // Id of the blogpost
     id: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
@@ -21,19 +21,19 @@ BlogPost.init(
 
     // Title of the blog post
     title: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     // Content of the blog post
     content: {
       // I am using text data type to allow more than 255 characters and other
       // type of media added to the content of the blogpost such as images
-      type: DataType.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     // Foreign key referencing the User model's id
     user_id: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: User,
@@ -42,14 +42,14 @@ BlogPost.init(
     },
     // The date and time when the blogpost was created
     created_at: {
-      type: DataType.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataType.NOW,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
     // Configure the options for the model
-    
+
     // Sequelize instance for managing the database connection
     sequelize,
     // Disable automatic generation of createdAt and updatedAt columns

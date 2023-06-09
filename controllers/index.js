@@ -9,6 +9,6 @@ const blogPostController = require('./blogPostController');
 router.use('/', homeController);
 router.use('/auth', authController);
 router.use('/dashboard', dashboardController);
-router.use('/blogpost', blogPostController);
+//router.use('/blogPost', blogPostController);
 
 module.exports = router;
