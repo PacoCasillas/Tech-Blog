@@ -30,36 +30,4 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
-// POST new blog post
-router.post("/new", withAuth, async (req, res) => {
-  try {
-    // Create a new blog post with the given title, content and user_id
-    const newPostData = await BlogPost.create({
-      title: req.body.title,
-      content: req.body.content,
-      user_id: req.session.userId,
-    });
-
-    // Redirect the user back to the dashboard
-    res.redirect("/dashboard");
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// DELETE blog post
-router.delete("/:id", withAuth, async (req, res) => {
-  try {
-    // Delete the blog post with the specified id
-    await BlogPost.destroy({ where: { id: req.params.id } });
-
-    // Send a success status
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
 module.exports = router;
