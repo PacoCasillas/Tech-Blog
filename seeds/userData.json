@@ -1,27 +1,27 @@
 [
-    {
-      "username": "Batman",
-      "email": "batman@example.com",
-      "password": "batmanpass"
-    },
-    {
-      "username": "Superman",
-      "email": "superman@example.com",
-      "password": "supermanpass"
-    },
-    {
-      "username": "Flash",
-      "email": "flash@example.com",
-      "password": "flashpass"
-    },
-    {
-      "username": "Harley Quinn",
-      "email": "harleyquinn@example.com",
-      "password": "harleyquinnpass"
-    },
-    {
-      "username": "Joker",
-      "email": "joker@example.com",
-      "password": "jokerpass"
-    }
-  ]
+  {
+    "username": "Batman",
+    "email": "batman@example.com",
+    "password": "batmanpass"
+  },
+  {
+    "username": "Superman",
+    "email": "superman@example.com",
+    "password": "supermanpass"
+  },
+  {
+    "username": "Flash",
+    "email": "flash@example.com",
+    "password": "flashpass"
+  },
+  {
+    "username": "Harley Quinn",
+    "email": "harleyquinn@example.com",
+    "password": "harleyquinnpass"
+  },
+  {
+    "username": "Joker",
+    "email": "joker@example.com",
+    "password": "jokerpass"
+  }
+]
