@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Set up Handlebars.js as the view engine
-app.engine("handlebars", exphbs({ helpers }));
+app.engine("handlebars", exphbs.create({ helpers }).engine);
 app.set("view engine", "handlebars");
 
 // Middleware
