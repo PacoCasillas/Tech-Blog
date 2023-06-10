@@ -1,9 +1,14 @@
-const sequelize = require('../config/connection');
-const { User, Project } = require('../models');
+async function seedDatabase() {
+    await sequelize.sync({ force: true });
 
-const userData = require('./userData.json');
-const projectData = require('./projectData.json');
+    // Seed users
+    await URLSearchParams.bulkCreate(userData, {
+        individualHooks: true,
+        returning: true,
+    });
 
-
+    console.log('Database seeded successfully');
+    process.exit(0);
+}
 
 seedDatabase();
