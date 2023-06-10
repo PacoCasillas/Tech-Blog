@@ -58,7 +58,7 @@ User.init(
         if (updatedUserData.password) {
           updatedUserData.password = await bcrypt.hash(
             updatedUserData.password,
-             10
+            10
           );
         }
         return updatedUserData;

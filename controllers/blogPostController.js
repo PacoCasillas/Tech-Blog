@@ -1,26 +1,26 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { User, BlogPost } = require('../models');
-const withAuth = require('../utils/auth');
+const { User, BlogPost } = require("../models");
+const withAuth = require("../utils/auth");
 
 // Get a specifuc blog post by ID
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     // Find blog post with ID and include the author's username
     const blogPost = await BlogPost.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ['username'] }],
+      include: [{ model: User, attributes: ["username"] }],
     });
 
     // Render blog post view with retrieved data
-    res.render('blogPost/index', { blogPost });
+    res.render("blogPost/index", { blogPost });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-// Create a comment on a blog post 
-router.post('/:id/comment', async (req, res) => {
+// Create a comment on a blog post
+router.post("/:id/comment", async (req, res) => {
   try {
     const { content } = req.body;
     const blogPostId = req.params.id;
@@ -42,7 +42,7 @@ router.post('/:id/comment', async (req, res) => {
 });
 
 // Create a new blog post
-router.post('/new', withAuth, async (req, res) => {
+router.post("/new", withAuth, async (req, res) => {
   try {
     const { title, content } = req.body;
     const userId = req.session.userId;
@@ -55,7 +55,7 @@ router.post('/new', withAuth, async (req, res) => {
     });
 
     // Redirect the user back to the dashboard after making a blog post
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -63,7 +63,7 @@ router.post('/new', withAuth, async (req, res) => {
 });
 
 // Update an existing blog post
-router.put('/:id', withAuth, async (req, res) => {
+router.put("/:id", withAuth, async (req, res) => {
   try {
     const { title, content } = req.body;
     const blogPostId = req.params.id;
@@ -81,8 +81,8 @@ router.put('/:id', withAuth, async (req, res) => {
       }
     );
 
-    // Redirect the user back to the dashboard after the blog post is updated 
-    res.redirect('/dashboard');
+    // Redirect the user back to the dashboard after the blog post is updated
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -90,7 +90,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 // Delete an existing blog post
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
   try {
     const blogPostId = req.params.id;
 
@@ -101,7 +101,7 @@ router.delete('/:id', withAuth, async (req, res) => {
       },
     });
 
-    // Send success status to indicate successful deletion 
+    // Send success status to indicate successful deletion
     res.sendStatus(200);
   } catch (err) {
     console.log(err);

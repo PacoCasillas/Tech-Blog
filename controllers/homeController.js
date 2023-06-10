@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
     // Determine if the user is logged in
     const loggedIn = req.session.loggedIn;
 
-    //Render the homepage view and pass the blog posts and loggedIn status
+    // Render the homepage view and pass the blog posts and loggedIn status
     res.render("home/index", { blogPost, loggedIn });
   } catch (err) {
     // Handle any errors that occur
