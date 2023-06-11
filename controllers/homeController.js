@@ -6,7 +6,7 @@ const { BlogPost, User } = require("../models");
 router.get("/", async (req, res) => {
   try {
     // Fetch all existing blog posts from the database
-    const blogPost = await BlogPost.findAll({
+    const blogPosts = await BlogPost.findAll({
       include: [
         {
           model: User,
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
     const loggedIn = req.session.loggedIn;
 
     // Render the homepage view and pass the blog posts and loggedIn status
-    res.render("home/index", { blogPost, loggedIn });
+    res.render("homepage", { blogPosts, loggedIn }); 
   } catch (err) {
     // Handle any errors that occur
     res.status(500).json(err);

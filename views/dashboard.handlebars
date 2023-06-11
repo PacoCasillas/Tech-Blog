@@ -1,0 +1,15 @@
+{{!-- Include the main layout --}}
+{{> layouts/main}}
+
+{{!-- Set the main content of the dashboard --}}
+{{#section 'body'}}
+  <section class="blog-posts">
+    <h2>Your Blog Posts</h2>
+    {{!-- Iterate over user's blog posts --}}
+    {{#each userBlogPosts}}
+      {{> partials/post}}
+    {{/each}}
+
+    <a href="/create-post">Add New Blog Post</a>
+  </section>
+{{/section}}

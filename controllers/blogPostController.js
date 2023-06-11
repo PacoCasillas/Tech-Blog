@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { User, BlogPost } = require("../models");
+const { User, BlogPost, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
-// Get a specifuc blog post by ID
+// Get a specific blog post by ID
 router.get("/:id", async (req, res) => {
   try {
     // Find blog post with ID and include the author's username
@@ -12,7 +12,7 @@ router.get("/:id", async (req, res) => {
     });
 
     // Render blog post view with retrieved data
-    res.render("blogPost/index", { blogPost });
+    res.render("post", { blogPost });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

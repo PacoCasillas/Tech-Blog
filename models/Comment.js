@@ -1,15 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 const User = require("./User");
-const Comment = require("./Comment");
+const BlogPost = require("./BlogPost");
 
-class BlogPost extends Model {}
+class Comment extends Model {}
 
-BlogPost.init(
+Comment.init(
   {
-    // Define the columns of the BlogPost model
+    // Define the columns of the Comment model
 
-    // Id of the blogpost
+    // Id of the comment
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,17 +17,9 @@ BlogPost.init(
       autoIncrement: true,
     },
 
-    // Title of the blog post
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    // Content of the blog post
+    // Content of the comment
     content: {
-      // I am using text data type to allow more than 255 characters and other
-      // type of media added to the content of the blogpost such as images
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
@@ -41,7 +33,17 @@ BlogPost.init(
       },
     },
 
-    // The date and time when the blogpost was created
+    // Foreign key referencing the BlogPost model's id
+    blogpost_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: BlogPost,
+        key: "id",
+      },
+    },
+
+    // The date and time when the comment was created
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -59,20 +61,9 @@ BlogPost.init(
     freezeTableName: true,
     // Use underscored naming convention for attributes
     underscored: true,
-    // Set the model name to 'blogpost'
-    modelName: "blogpost",
+    // Set the model name to 'comment'
+    modelName: "comment",
   }
 );
 
-// Association between BlogPost and User models
-BlogPost.belongsTo(User, {
-  foreignKey: "user_id",
-});
-
-// Association between BlogPost and Comment models
-BlogPost.hasMany(Comment, {
-  foreignKey: "blogpost_id",
-  onDelete: "CASCADE",
-});
-
-module.exports = BlogPost;
+module.exports = Comment;

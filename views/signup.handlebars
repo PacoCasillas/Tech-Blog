@@ -1,13 +1,13 @@
 {{!-- Include the main layout --}}
 {{> layouts/main}}
 
-{{!-- Set the main content of the login page --}}
+{{!-- Set the main content of the signup page --}}
 {{#section 'body'}}
-  <form action="/login" method="POST">
+  <form action="/signup" method="POST">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <button type="submit">Log In</button>
+    <button type="submit">Sign Up</button>
   </form>
 {{/section}}

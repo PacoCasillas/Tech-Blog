@@ -1,0 +1,13 @@
+{{!-- Include the main layout --}}
+{{> layouts/main}}
+
+{{!-- Set the main content of the create-post page --}}
+{{#section 'body'}}
+  <form action="/create-post" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+    <label for="contents">Contents:</label>
+    <textarea id="contents" name="contents" required></textarea>
+    <button type="submit">Create Post</button>
+  </form>
+{{/section}}
