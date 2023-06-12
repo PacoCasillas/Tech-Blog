@@ -36,7 +36,7 @@ BlogPost.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: User,
+        model: "user",
         key: "id",
       },
     },
@@ -63,16 +63,5 @@ BlogPost.init(
     modelName: "blogpost",
   }
 );
-
-// Association between BlogPost and User models
-BlogPost.belongsTo(User, {
-  foreignKey: "user_id",
-});
-
-// Association between BlogPost and Comment models
-BlogPost.hasMany(Comment, {
-  foreignKey: "blogpost_id",
-  onDelete: "CASCADE",
-});
 
 module.exports = BlogPost;

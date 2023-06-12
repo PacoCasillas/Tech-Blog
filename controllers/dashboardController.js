@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, BlogPost, Comment } = require("../models");
+const { User, BlogPost } = require("../models");
 const withAuth = require("../utils/auth");
 
 // GET dashboard

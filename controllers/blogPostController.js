@@ -12,7 +12,7 @@ router.get("/:id", async (req, res) => {
     });
 
     // Render blog post view with retrieved data
-    res.render("post", { blogPost });
+    res.render("partials/post", { blogPost });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a comment on a blog post
-router.post("/:id/comment", async (req, res) => {
+router.post("/:id/comment", withAuth, async (req, res) => {
   try {
     const { content } = req.body;
     const blogPostId = req.params.id;
@@ -68,7 +68,7 @@ router.put("/:id", withAuth, async (req, res) => {
     const { title, content } = req.body;
     const blogPostId = req.params.id;
 
-    // Update the title and content of the blogpost with given ID
+    // Update the title and content of the blog post with the given ID
     await BlogPost.update(
       {
         title,
@@ -94,7 +94,7 @@ router.delete("/:id", withAuth, async (req, res) => {
   try {
     const blogPostId = req.params.id;
 
-    // Delete the blog post with specified ID
+    // Delete the blog post with the specified ID
     await BlogPost.destroy({
       where: {
         id: blogPostId,

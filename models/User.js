@@ -78,10 +78,4 @@ User.init(
   }
 );
 
-// Association between User and Comment models
-User.hasMany(Comment, {
-  foreignKey: "user_id",
-  onDelete: "CASCADE",
-});
-
 module.exports = User;
