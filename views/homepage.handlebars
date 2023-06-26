@@ -1,8 +1,4 @@
-{{!-- Include the main layout --}}
-{{> layouts/main}}
-
 {{!-- Set the main content of the homepage --}}
-{{#section 'body'}}
   <section class="blog-posts">
     <h2>Latest Blog Posts</h2>
     {{!-- Iterate over blog posts --}}
@@ -10,4 +6,3 @@
       {{> partials/post}}
     {{/each}}
   </section>
-{{/section}}

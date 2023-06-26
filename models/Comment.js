@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-const User = require("./User");
-const BlogPost = require("./BlogPost");
+// const User = require("./User");
+// const BlogPost = require("./BlogPost");
 
 class Comment extends Model {}
 
@@ -18,9 +18,19 @@ Comment.init(
     },
 
     // Content of the comment
-    content: {
+    commented_text: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+
+    // Commented by user
+    commented_by: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "username",
+      }
     },
 
     // Foreign key referencing the User model's id

@@ -11,15 +11,6 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars.js as the view engine
-app.engine("handlebars", exphbs.create({ helpers }).engine);
-app.set("view engine", "handlebars");
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-
 // Session Management
 const sess = {
   // Set a strong secret for signing the session ID cookie
@@ -27,9 +18,6 @@ const sess = {
   cookie: {
     // Session cookie configurations
     maxAge: 3600000, // 1 hour in milliseconds
-    secure: false, // can use HTTP
-    httpOnly: true, // Restrict cookie access to HTTP only
-    sameSite: "strict", // Restrict cookie to be sent only on same-site requests
   },
   resave: false, // Whether to save the session if it's unmodified
   saveUninitialized: true, // Whether to save uninitialized sessions
@@ -40,6 +28,18 @@ const sess = {
 };
 
 app.use(session(sess));
+
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
+
+// Set up Handlebars.js as the view engine
+app.engine("handlebars", hbs.engine);
+app.set("view engine", "handlebars");
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use(routes);

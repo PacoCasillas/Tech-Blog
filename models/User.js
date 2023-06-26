@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
-const Comment = require("./Comment");
+// const Comment = require("./Comment");
 
 class User extends Model {
   // Method to check if the provided password matches the hashed password in the database

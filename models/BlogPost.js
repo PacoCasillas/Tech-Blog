@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-const User = require("./User");
-const Comment = require("./Comment");
+// const User = require("./User");
+// const Comment = require("./Comment");
 
 class BlogPost extends Model {}
 
@@ -32,7 +32,7 @@ BlogPost.init(
     },
 
     // Foreign key referencing the User model's id
-    user_id: {
+    created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

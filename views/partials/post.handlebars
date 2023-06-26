@@ -1,6 +1,11 @@
-<div class="blog-post">
-  <h3>{{title}}</h3>
-  <p>Posted by {{username}} on {{date}}</p>
-  <p>{{contents}}</p>
-  <a href="/blogpost/{{id}}">Read More</a>
-</div>
+{{!-- Display the blog post information --}}
+<h2>{{ blogPost.title }}</h2>
+<p>{{ blogPost.content }}</p>
+<p>Author: {{ blogPost.User.username }}</p>
+
+{{!-- Display the comments --}}
+<h3>Comments</h3>
+{{#each blogPost.Comments}}
+  <p>{{ this.content }}</p>
+  <p>Comment by: {{ this.User.username }}</p>
+{{/each}}

@@ -3,21 +3,26 @@ const { User, BlogPost, Comment } = require("../models");
 
 // Render the homepage with existing blog posts
 router.get("/", async (req, res) => {
-  // Retrieve all blog posts from the database, including associated user and comment data
-  const blogPostsData = await BlogPost.findAll({
-    include: [
-      { model: User, attributes: ["username"] },
-      { model: Comment, include: { model: User, attributes: ["username"] } },
-    ],
-  });
+  try {
+    // Retrieve all blog posts from the database, including associated user and comment data
+    const blogPostsData = await BlogPost.findAll({
+      include: [
+        { model: User, attributes: ["username"] },
+        { model: Comment, include: { model: User, attributes: ["username"] } },
+      ],
+    });
 
-  // Extract plain JavaScript objects from the retrieved blog posts data
-  const blogPosts = blogPostsData.map((blogPost) =>
-    blogPost.get({ plain: true })
-  );
+    // Extract plain JavaScript objects from the retrieved blog posts data
+    const blogPosts = blogPostsData.map((blogPost) =>
+      blogPost.get({ plain: true })
+    );
 
-  // Render the "homepage" view template with the blog posts and login status
-  res.render("homepage", { blogPosts, logged_in: req.session.logged_in });
+    // Render the "homepage" view template with the blog posts and login status
+    res.render("homepage", { blogPosts, logged_in: req.session.logged_in });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // Render a specific blog post by ID

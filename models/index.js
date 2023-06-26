@@ -8,8 +8,10 @@ User.hasMany(Comment, {
   onDelete: "CASCADE",
 });
 
-BlogPost.belongsTo(User, {
+// Association between User and BlogPost models
+User.hasMany(BlogPost, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
 });
 
 // Association between Comment and User models
@@ -21,12 +23,6 @@ Comment.belongsTo(User, {
 // Association between Comment and BlogPost models
 Comment.belongsTo(BlogPost, {
   foreignKey: "blogpost_id",
-  onDelete: "CASCADE",
-});
-
-// Association between User and Comment models
-User.hasMany(Comment, {
-  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
