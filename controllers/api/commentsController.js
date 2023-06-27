@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Comment } = require("../../models");
 
 // Create a comment on a blog post
-router.post("/:id/comment", withAuth, async (req, res) => {
+router.post("/:id/comment", async (req, res) => {
     try {
       const { content } = req.body;
       const blogPostId = req.params.id;

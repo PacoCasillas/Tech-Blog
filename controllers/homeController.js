@@ -29,26 +29,26 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a specific blog post by ID
-router.get("/:id", async (req, res) => {
-  try {
-    // Find blog post with ID and include the author's username and comments
-    const blogPost = await BlogPost.findByPk(req.params.id, {
-      include: [
-        { model: User, attributes: ["username"] },
-        {
-          model: Comment,
-          include: [{ model: User, attributes: ["username"] }],
-        },
-      ],
-    });
+// // Get a specific blog post by ID
+// router.get("/:id", async (req, res) => {
+//   try {
+//     // Find blog post with ID and include the author's username and comments
+//     const blogPost = await BlogPost.findByPk(req.params.id, {
+//       include: [
+//         { model: User, attributes: ["username"] },
+//         {
+//           model: Comment,
+//           include: [{ model: User, attributes: ["username"] }],
+//         },
+//       ],
+//     });
 
-    // Render blog post view with retrieved data
-    res.render("partials/post", { blogPost });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+//     // Render blog post view with retrieved data
+//     res.render("partials/post", { blogPost });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

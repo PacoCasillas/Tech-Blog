@@ -31,6 +31,16 @@ BlogPost.init(
       allowNull: false,
     },
 
+    // Commented by user
+    posted_by: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "username",
+      },
+    },
+
     // Foreign key referencing the User model's id
     created_by: {
       type: DataTypes.INTEGER,

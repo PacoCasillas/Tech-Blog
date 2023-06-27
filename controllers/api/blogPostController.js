@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { BlogPost } = require("../../models");
-const { parseBlogPost, insertBlogPost } = require("../../utils/blogPost");
 
 // Create a new blog post
 router.post("/", async (req, res) => {
@@ -8,15 +7,13 @@ router.post("/", async (req, res) => {
     // const { title, content, created_by, created_at } = req.body;
 
     // Create a new blog post with given data
-    const blogPostData = await BlogPost.create(req.body);
-    let blogPost = parseBlogPost(
-      req.body.title,
-      req.body.content,
-      req.session.user_id,
-      req.body.created_at
-    );
+    const blogPostData = await BlogPost.create({
+      blogPost_title: req.body.title,
+      blogPost_content: req.body.content,
+      blogPost_userId: req.session.user_id,
+      blogPost_createdAt: req.body.created_at,
+    });
 
-    await insertBlogPost(blogPost);
     res.status(200).json(blogPostData);
     // Redirect the user back to home after creating the blog post
     res.redirect("/home");
@@ -64,6 +61,8 @@ router.delete("/:id", async (req, res) => {
       },
     });
 
+    // Redirect the user back to home after the blog post is updated
+    res.redirect("/home");
     // Send success status to indicate successful deletion
     res.status(200).json(blogPostData);
   } catch (err) {
