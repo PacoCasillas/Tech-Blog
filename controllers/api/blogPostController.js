@@ -1,5 +1,6 @@
+// blogPostController.js
 const router = require("express").Router();
-const { BlogPost } = require("../../models");
+const { BlogPost, User } = require("../../models");
 
 // Create a new blog post
 router.post("/", async (req, res) => {
@@ -23,6 +24,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Get the current content of a blog post
+router.get("/:id", async (req, res) => {
+  try {
+    const blogPostData = await BlogPost.findByPk(req.params.id, {
+      include: [{ model: User, attributes: ["username"] }],
+    });
+    res.status(200).json(blogPostData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 // Update an existing blog post
 router.put("/:id", async (req, res) => {
   try {
@@ -40,8 +54,31 @@ router.put("/:id", async (req, res) => {
         },
       }
     );
-    // Redirect the user back to home after the blog post is updated
-    res.redirect("/home");
+
+    res.status(200).json(blogPostData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// Update the content of a blog post
+router.patch("/:id/content", async (req, res) => {
+  try {
+    const { content } = req.body;
+
+    // Update the content of the blog post with the given ID
+    const blogPostData = await BlogPost.update(
+      {
+        blogPost_content: content,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
     res.status(200).json(blogPostData);
   } catch (err) {
     console.log(err);
@@ -62,7 +99,7 @@ router.delete("/:id", async (req, res) => {
     });
 
     // Redirect the user back to home after the blog post is updated
-    res.redirect("/home");
+    // res.redirect("/home");
     // Send success status to indicate successful deletion
     res.status(200).json(blogPostData);
   } catch (err) {

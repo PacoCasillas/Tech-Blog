@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 
     // Render the "homepage" view template with the blog posts and login status
     res.render("homepage", {
-      blogPosts: blogPosts,
+        blogPosts,
       // Loggin implementation
       // logged_in: req.session.logged_in,
     });
@@ -52,20 +52,20 @@ router.get("/dashboard", async (req, res) => {
       include: [{ model: User, attributes: ["username"] }],
     });
     // Serialize user and blog post data
-    let userBlogposts = dashboardData.map((post) => post.get({ plain: true }));
+    let userBlogposts = dashboardData.map((blogPost) => blogPost.get({ plain: true }));
     // Render the dashboard view with user and blog post data
-    if (userBlogposts.length === 0) {
-      userBlogposts = false;
+    // if (userBlogposts.length === 0) {
+    //   userBlogposts = false;
+    //   res.render("dashboard", {
+    //     userBlogposts,
+    //     // logged_in: req.session.logged_in,
+    //   });
+    // } else {
       res.render("dashboard", {
         userBlogposts,
-        logged_in: req.session.logged_in,
+        // logged_in: req.session.logged_in,
       });
-    } else {
-      res.render("dashboard", {
-        userBlogposts,
-        logged_in: req.session.logged_in,
-      });
-    }
+    // }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
