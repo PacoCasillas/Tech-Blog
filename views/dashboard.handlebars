@@ -1,10 +1,19 @@
-{{!-- Set the main content of the dashboard --}}
-  <section class="blog-posts">
-    <h2>Your Blog Posts</h2>
-    {{!-- Iterate over user's blog posts --}}
-    {{!-- {{#each userBlogPosts}}
-      {{> partials/post}}
-    {{/each}} --}}
+{{! Set the main content of the dashboard }}
+<div>
+  <h1>Dashboard</h1>
+  <h2>Welcome back, {{username}}!</h2>
+<a href="/create-post" class="create-post-button">Create New Post</a>
 
-    <a href="/create-post">Add New Blog Post</a>
-  </section>
+<section class="blog-posts">
+  <h2>Your Blog Posts</h2>
+  {{! Iterate over user's blog posts }}
+{{#each blogPosts as |blogPost|}}
+    {{! Display the blog post information }}
+    <div class="blog-post-itself">
+      <h2 class="blog-post-title">{{blogPost.title}}</h2>
+      <p>{{blogPost.content}}</p>
+      <p>Author: {{this.user.username}}</p>
+      <p>Created on: {{blogPost.created_at}}</p>
+  {{/each}}
+</section>
+</div>

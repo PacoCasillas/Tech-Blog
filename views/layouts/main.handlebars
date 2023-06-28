@@ -12,14 +12,23 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/dashboard">Dashboard</a></li>
+          {{#if logged_In}}
           <li><a href="/logout">Log Out</a></li>
+          {{else}}
+          <li><a href="/login">Log In</a></li>
+          {{/if}}
         </ul>
+
       </nav>
     </header>
 
     <main class="main-content">
       {{{body}}}
     </main>
+
+    {{#if logged_In}}
+    <script src="/js/logout.js"></script>
+    {{/if}}
 
     <footer>
       <p>&copy; 2023 Tech Blog. All rights reserved.</p>

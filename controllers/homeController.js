@@ -21,7 +21,8 @@ router.get("/", async (req, res) => {
     // Render the "homepage" view template with the blog posts and login status
     res.render("homepage", {
       blogPosts: blogPosts,
-      logged_in: req.session.logged_in,
+      // Loggin implementation
+      // logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
@@ -29,26 +30,70 @@ router.get("/", async (req, res) => {
   }
 });
 
-// // Get a specific blog post by ID
-// router.get("/:id", async (req, res) => {
-//   try {
-//     // Find blog post with ID and include the author's username and comments
-//     const blogPost = await BlogPost.findByPk(req.params.id, {
-//       include: [
-//         { model: User, attributes: ["username"] },
-//         {
-//           model: Comment,
-//           include: [{ model: User, attributes: ["username"] }],
-//         },
-//       ],
-//     });
+// DASHBOARD route
+router.get("/dashboard", async (req, res) => {
+  try {
+    // hardcoded user id for testing
+    const userID = 1;
 
-//     // Render blog post view with retrieved data
-//     res.render("partials/post", { blogPost });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
+    // const userID = req.session.user_id;
+    // Find all blog posts created by the user
+    const dashboardData = await BlogPost.findAll({
+      where: { created_by: userID },
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "posted_by",
+        "created_by",
+        "created_at",
+      ],
+      order: [["created_at", "DESC"]],
+      include: [{ model: User, attributes: ["username"] }],
+    });
+    // Serialize user and blog post data
+    let userBlogposts = dashboardData.map((post) => post.get({ plain: true }));
+    // Render the dashboard view with user and blog post data
+    if (userBlogposts.length === 0) {
+      userBlogposts = false;
+      res.render("dashboard", {
+        userBlogposts,
+        logged_in: req.session.logged_in,
+      });
+    } else {
+      res.render("dashboard", {
+        userBlogposts,
+        logged_in: req.session.logged_in,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// LOGIN route
+router.get("/login", (req, res) => {
+  // Loggin implementation
+  // If the user is already logged in, redirect to the dashboard
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
+  // Otherwise, render the 'login' template
+  res.render("login");
+});
+
+// SIGNUP route
+router.get("/signup", (req, res) => {
+  // Loggin implementation
+  // If the user is already logged in, redirect to the dashboard
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
+  // Otherwise, render the 'signup' template
+  res.render("signup");
+});
 
 module.exports = router;

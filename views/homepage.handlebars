@@ -1,23 +1,27 @@
-{{#each blogPosts as |blogPost|}}
-  {{! Display the blog post information }}
-  <h2>{{blogPost.title}}</h2>
-  <p>{{blogPost.content}}</p>
-  <p>Author: {{this.user.username}}</p>
-  <p>Created on: {{blogPost.created_at}}</p>
+<div class="blog-post-container">
+  {{#each blogPosts as |blogPost|}}
+    {{! Display the blog post information }}
+    <div class="blog-post-itself">
+      <h2 class="blog-post-title">{{blogPost.title}}</h2>
+      <p>{{blogPost.content}}</p>
+      <p>Author: {{this.user.username}}</p>
+      <p>Created on: {{blogPost.created_at}}</p>
 
-  {{! Display the comments }}
-  
-  <div class="comments">
-    <h4>Comments</h4>
-    {{! Iterate over comments }}
-    {{#each comments as |comment|}}
-      <div class="comment">
-        <p>{{comment.commented_text}}</p>
-        <p>Comment by {{this.user.username}} on {{this.created_at}}</p>
+      {{! Display the comments }}
+
+      <div class="comments">
+        <h4>Comments</h4>
+        {{! Iterate over comments }}
+        {{#each comments as |comment|}}
+          <div class="comment">
+            <p>{{comment.commented_text}}</p>
+            <p>Comment by {{this.user.username}} on {{this.created_at}}</p>
+          </div>
+        {{/each}}
+        <a href="/create-comment" class="create-post-button">Create New Comment</a>
       </div>
-    {{/each}}
-  </div>
+    </div>
+  {{/each}}
+</div>
 
-{{/each}}
-
-{{!-- <script src="/js/comment.js"></script> --}}
+{{! <script src="/js/comment.js"></script> }}
