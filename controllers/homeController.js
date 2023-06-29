@@ -35,7 +35,7 @@ router.get("/dashboard", async (req, res) => {
   try {
     // hardcoded user id for testing
     const userID = 1;
-
+    
     // const userID = req.session.user_id;
     // Find all blog posts created by the user
     const dashboardData = await BlogPost.findAll({
@@ -95,5 +95,32 @@ router.get("/signup", (req, res) => {
   // Otherwise, render the 'signup' template
   res.render("signup");
 });
+
+// UPDATE BLOGPOST route
+// Get the current content of a blog post
+router.get("/update-post/:id", async (req, res) => {
+  try {
+    //hardcoded post id for testing
+    const postID = 1;
+    // const postID = req.params.id;
+    const blogpostData = await BlogPost.findByPk(postID);
+    const blogpost = blogpostData.get({ plain: true});
+    res.render("update-post", { blogpost });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// CREATE BLOGPOST route
+router.get("/create-post", async (req, res) => {
+  try {
+    res.render("create-post");
+    // , { logged_In: req.session.logged_In }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 module.exports = router;

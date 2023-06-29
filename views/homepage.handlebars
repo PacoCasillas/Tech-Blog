@@ -18,10 +18,13 @@
             <p>Comment by {{this.user.username}} on {{this.created_at}}</p>
           </div>
         {{/each}}
-        <a href="/create-comment" class="create-post-button">Create New Comment</a>
+        <div id="new-comment-form">
+          <textarea id="comment-text" placeholder="Write your comment here"></textarea>
+          <button type="button" class="create-comment-button" onclick="submitComment(event, '{{blogPost.id}}')">Submit Comment</button>
+        </div>
       </div>
     </div>
   {{/each}}
 </div>
 
-{{! <script src="/js/comment.js"></script> }}
+<script src="/js/create-comment.js"></script>

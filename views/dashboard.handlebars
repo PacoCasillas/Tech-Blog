@@ -9,12 +9,16 @@
     {{#each userBlogposts as |blogPost|}}
       {{! Display the blog post information }}
       <div class="blog-post-itself">
-        <h2 class="blog-post-title">{{blogPost.title}}</h2>
-        <p>{{blogPost.content}}</p>
-        <p>Author: {{blogPost.user.username}}</p>
+        <h2 id="blog-post-title">{{blogPost.title}}</h2>
+        <p id="blog-postcontent">{{blogPost.content}}</p>
+        <p>Author: {{blogPost.posted_by}}</p>
         <p>Created on: {{blogPost.created_at}}</p>
 
-<a href="/update-blogpost/{{blogPost.id}}" class="update-post-button" data-post-id="{{blogPost.id}}">Update</a>        <a href="/delete-post" class="delete-post-button">Delete</a>
+        <a
+          href="/update-post/{{blogPost.id}}"
+          class="update-post-button"
+        >Update</a>
+        <a href="/delete-post/{{blogPost.id}}" class="delete-post-button">Delete</a>
       </div>
     {{/each}}
   </section>

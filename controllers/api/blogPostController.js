@@ -9,44 +9,33 @@ router.post("/", async (req, res) => {
 
     // Create a new blog post with given data
     const blogPostData = await BlogPost.create({
-      blogPost_title: req.body.title,
-      blogPost_content: req.body.content,
-      blogPost_userId: req.session.user_id,
-      blogPost_createdAt: req.body.created_at,
+      title: req.body.title,
+      content: req.body.content,
+      // userId: req.session.user_id,
+      userId: 1, // hardcoded user ID for testing
+      posted_by: "Batman", // hardcoded user ID for testing
+      created_by: 1, // Hardcoded user ID for testing
+      createdAt: new Date()
     });
 
-    res.status(200).json(blogPostData);
-    // Redirect the user back to home after creating the blog post
-    res.redirect("/home");
+    // res.status(200).json(blogPostData);
+    // // Redirect the user back to dashboard after creating the blog post
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-// Get the current content of a blog post
-router.get("/:id", async (req, res) => {
-  try {
-    const blogPostData = await BlogPost.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ["username"] }],
-    });
-    res.status(200).json(blogPostData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
 
-// Update an existing blog post
+// Update an existing blog post -> http://localhost:3001/api/blogposts/:id
 router.put("/:id", async (req, res) => {
   try {
-    const { title, content } = req.body;
-
     // Update the title and content of the blog post with the given ID
     const blogPostData = await BlogPost.update(
       {
-        title,
-        content,
+        title: req.body.title,
+        content: req.body.content,
       },
       {
         where: {
@@ -55,31 +44,8 @@ router.put("/:id", async (req, res) => {
       }
     );
 
-    res.status(200).json(blogPostData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// Update the content of a blog post
-router.patch("/:id/content", async (req, res) => {
-  try {
-    const { content } = req.body;
-
-    // Update the content of the blog post with the given ID
-    const blogPostData = await BlogPost.update(
-      {
-        blogPost_content: content,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-
-    res.status(200).json(blogPostData);
+    // res.status(200).json(blogPostData);
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

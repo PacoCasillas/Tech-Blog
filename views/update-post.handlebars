@@ -1,0 +1,31 @@
+<div class="update-blogpost-div">
+  <form class="update-blogpost-form" action="/api/blogpost" method="PUT">
+    <div>
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="blog-post-title"
+        placeholder="{{blogpost.title}}"
+        value="{{blogpost.title}}"
+      />
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <textarea
+        class="form-control"
+        id="blog-post-content"
+        placeholder="{{blogpost.content}}"
+        rows="10"
+      >{{blogpost.content}}</textarea>
+    </div>
+  </form>
+  <a
+    href="/update-blogpost/{{blogpost.id}}"
+    id="submit-update-btn"
+    type="submit"
+    data-id="{{blogpost.id}}"
+  >Update</a>
+  <button class="delete-blogpost-button">Delete</button>
+</div>
+<script src="/js/update-blogpost.js"></script>
