@@ -1,4 +1,6 @@
-const submitNewBlogpost = document.getElementById("#submit-create-blogpost-btn");
+const submitNewBlogpost = document.getElementById(
+  "#submit-create-blogpost-btn"
+);
 const blogpostTitle = document.getElementById("#create-blogpost-title");
 const blogpostContent = document.getElementById("#create-blogpost-content");
 
@@ -22,6 +24,8 @@ submitNewBlogpost.addEventListener("click", (e) => {
       if (response.status === 200) {
         // Redirect to the dashboard
         window.location.href = "/dashboard";
+      } else {
+        console.log("Error creating blog post");
       }
     })
     .catch((error) => {
