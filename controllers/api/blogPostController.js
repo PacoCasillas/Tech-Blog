@@ -44,8 +44,8 @@ router.put("/:id", async (req, res) => {
       }
     );
 
-    // res.status(200).json(blogPostData);
-    res.redirect("/dashboard");
+    res.status(200).json(blogPostData);
+    // res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

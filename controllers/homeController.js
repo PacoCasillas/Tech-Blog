@@ -101,8 +101,8 @@ router.get("/signup", (req, res) => {
 router.get("/update-post/:id", async (req, res) => {
   try {
     //hardcoded post id for testing
-    const postID = 1;
-    // const postID = req.params.id;
+    // const postID = 1;
+    const postID = req.params.id;
     const blogpostData = await BlogPost.findByPk(postID);
     const blogpost = blogpostData.get({ plain: true});
     res.render("update-post", { blogpost });
