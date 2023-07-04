@@ -207,5 +207,14 @@ footer {
 
 .create-blogpost-form {
   margin-top: 50px;
+}
 
+.signup-form {
+  width: 100%;
+  max-width: 600px;
+  margin: inherit;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 5px solid green;
 }
