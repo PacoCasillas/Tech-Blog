@@ -10,14 +10,16 @@ router.post("/", async (req, res) => {
       await BlogPost.create({
       title: req.body.title,
       content: req.body.content,
-      // userId: req.session.user_id,
-      userId: 1, // hardcoded user ID for testing
-      posted_by: "Batman", // hardcoded user ID for testing
-      created_by: 1, // Hardcoded user ID for testing
+      posted_by: req.body.posted_by,
+      // posted_by: "Batman", // hardcoded user ID for testing
+      created_by: req.session.user_id,
+      // created_by: 1, // Hardcoded user ID for testing
       createdAt: new Date()
     });
 
-    res.status(200).json(blogPostData);
+    // reroute to dashboard
+    res.redirect("/dashboard");
+    // res.status(200).json(blogPostData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
