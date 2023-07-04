@@ -28,15 +28,15 @@ User.init(
       allowNull: false,
       unique: true,
     },
-    // Email of user
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
+    // // Email of user
+    // email: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   unique: true,
+    //   validate: {
+    //     isEmail: true,
+    //   },
+    // },
     // User password
     password: {
       type: DataTypes.STRING,
