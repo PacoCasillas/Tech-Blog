@@ -20,9 +20,8 @@ router.get("/", async (req, res) => {
 
     // Render the "homepage" view template with the blog posts and login status
     res.render("homepage", {
-        blogPosts,
-      // Loggin implementation
-      // logged_in: req.session.logged_in,
+      blogPosts,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
@@ -34,9 +33,9 @@ router.get("/", async (req, res) => {
 router.get("/dashboard", async (req, res) => {
   try {
     // hardcoded user id for testing
-    const userID = 1;
+    // const userID = 1;
     
-    // const userID = req.session.user_id;
+    const userID = req.session.user_id;
     // Find all blog posts created by the user
     const dashboardData = await BlogPost.findAll({
       where: { created_by: userID },
@@ -54,18 +53,14 @@ router.get("/dashboard", async (req, res) => {
     // Serialize user and blog post data
     let userBlogposts = dashboardData.map((blogPost) => blogPost.get({ plain: true }));
     // Render the dashboard view with user and blog post data
-    // if (userBlogposts.length === 0) {
-    //   userBlogposts = false;
-    //   res.render("dashboard", {
-    //     userBlogposts,
-    //     // logged_in: req.session.logged_in,
-    //   });
-    // } else {
-      res.render("dashboard", {
-        userBlogposts,
-        // logged_in: req.session.logged_in,
-      });
-    // }
+    if (userBlogposts.length === 0) {
+      userBlogposts = false;
+    }
+
+    res.render("dashboard", {
+      userBlogposts,
+      logged_in: req.session.logged_in,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -76,24 +71,28 @@ router.get("/dashboard", async (req, res) => {
 router.get("/login", (req, res) => {
   // Loggin implementation
   // If the user is already logged in, redirect to the dashboard
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
   // Otherwise, render the 'login' template
-  res.render("login");
+  res.render("login", {
+    logged_in: req.session.logged_in
+  });
 });
 
 // SIGNUP route
 router.get("/signup", (req, res) => {
   // Loggin implementation
   // If the user is already logged in, redirect to the dashboard
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
   // Otherwise, render the 'signup' template
-  res.render("signup");
+  res.render("signup", {
+    logged_in: req.session.logged_in
+  });
 });
 
 // UPDATE BLOGPOST route
@@ -116,11 +115,23 @@ router.get("/update-post/:id", async (req, res) => {
 router.get("/create-post", async (req, res) => {
   try {
     res.render("create-post");
-    // , { logged_In: req.session.logged_In }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 })
+
+// LOGOUT route
+router.get("/logout", (req, res) => {
+  // If the user is logged in, destroy the session and redirect to the homepage
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.redirect("/");
+    });
+  } else {
+    // Otherwise, redirect to the homepage
+    res.redirect("/");
+  }
+});
 
 module.exports = router;

@@ -7,28 +7,29 @@
   </head>
   <body>
     <header class="main-header">
-      <h1>Tech Blog</h1>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
-          {{#if logged_In}}
-          <li><a href="#">Log Out</a></li>
-          {{else}}
-          <li><a href="/login">Log In</a></li>
-          {{/if}}
-        </ul>
-
-      </nav>
-    </header>
+  <h1>Tech Blog</h1>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      {{#if logged_in}}
+        <li><a class="nav-link logout" href="#">Log Out</a></li>
+      {{else}}
+        <li><a class="nav-link login" href="/login">Log In</a></li>
+      {{/if}}
+    </ul>
+  </nav>
+</header>
 
     <main class="main-content">
       {{{body}}}
     </main>
 
-    {{#if logged_In}}
+    {{#if logged_in}}
     <script src="/js/logout.js"></script>
     {{/if}}
+
+    <script>console.log(logged_in)</script>
 
     <footer>
       <p>&copy; 2023 Tech Blog. All rights reserved.</p>
