@@ -15,12 +15,14 @@
         {{#each comments as |comment|}}
           <div class="comment">
             <p>{{comment.commented_text}}</p>
-            <p>Comment by {{this.user.username}} on {{this.created_at}}</p>
+            {{!-- <p>Comment by {{this.user.username}} on {{this.created_at}}</p> --}}
+            <p>Comment by {{comment.commented_by}} on {{comment.created_at}}</p>
           </div>
         {{/each}}
         <div id="new-comment-form">
           <textarea id="comment-text" placeholder="Write your comment here"></textarea>
-          <button type="button" class="create-comment-button" onclick="submitComment(event, '{{blogPost.id}}')">Submit Comment</button>
+          {{!-- <button type="button" class="create-comment-button" id="submit-create-comment-btn" data-blogpost-id="{{blogPost.id}}" >Submit Comment</button> --}}
+        <button type="button" class="create-comment-button" id="submit-create-comment-btn" data-blogpostId="{{blogPost.id}}">Submit Comment</button>
         </div>
       </div>
     </div>
